@@ -9,10 +9,19 @@ export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
 });
 
 export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {
-    const { data } = await axios.get("/tags");
-    
+  const { data } = await axios.get("/tags");
+
+  return data;
+});
+
+export const fetchRemovePost = createAsyncThunk(
+  "posts/fetchRemovePost",
+  async (id) => {
+    const { data } = await axios.delete(`/posts/${id}`);
+
     return data;
-  });
+  }
+);
 
 const initialState = {
   posts: {
@@ -31,6 +40,7 @@ const postsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // Получение статей
       .addCase(fetchPosts.pending, (state) => {
         state.posts.status = "loading";
         state.posts.items = [];
@@ -43,6 +53,7 @@ const postsSlice = createSlice({
         state.posts.status = "error";
         state.posts.items = [];
       })
+      // Получение тегов
       .addCase(fetchTags.pending, (state) => {
         state.tags.status = "loading";
         state.tags.items = [];
@@ -54,6 +65,10 @@ const postsSlice = createSlice({
       .addCase(fetchTags.rejected, (state) => {
         state.tags.status = "error";
         state.tags.items = [];
+      })
+      // Удаление статьи
+      .addCase(fetchRemovePost.pending, (state, action) => {
+        state.posts.items = state.posts.items.filter(post => post._id !== action.meta.arg)
       });
   },
 });
