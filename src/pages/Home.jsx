@@ -42,9 +42,10 @@ export const Home = () => {
             ) : (
               <Post
                 id={item._id}
+                key={item._id}
                 title={item.title}
                 imageUrl={
-                  item.imageUrl ? `${process.env.REACT_APP_API_URL}${item.imageUrl}` : ""
+                  item.imageUrl ? item.imageUrl : ""
                 }
                 user={item.user}
                 createdAt={item.createdAt}

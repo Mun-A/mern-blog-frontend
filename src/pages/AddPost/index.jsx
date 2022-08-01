@@ -31,7 +31,9 @@ export const AddPost = () => {
       const file = e.target.files[0];
       formData.append("image", file);
 
-      const { data } = await axios.post("/upload", formData);
+      const {
+        data: { data },
+      } = await axios.post("/upload", formData);
 
       setImageUrl(data.url);
     } catch (err) {
@@ -140,11 +142,7 @@ export const AddPost = () => {
           >
             Удалить
           </Button>
-          <img
-            className={styles.image}
-            src={`${process.env.REACT_APP_API_URL}${imageUrl}`}
-            alt="Uploaded"
-          />
+          <img className={styles.image} src={imageUrl} alt="Uploaded" />
         </>
       )}
       <br />
