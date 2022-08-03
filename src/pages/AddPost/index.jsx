@@ -16,11 +16,13 @@ export const AddPost = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const isAuth = useSelector(selectIsAuth);
+  const userData = useSelector(state => state.auth.data);
   const [isLoading, setIsLoading] = useState(false);
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [currentUserId, setCurrentUserId] = useState(null);
   const inputFileRef = useRef(null);
 
   const isEditing = Boolean(id);
@@ -89,6 +91,7 @@ export const AddPost = () => {
           setText(data.text);
           setTags(data.tags.join(","));
           setImageUrl(data.imageUrl);
+          setCurrentUserId(data.user._id)
         })
         .catch((err) => {
           console.warn(err);
@@ -113,6 +116,13 @@ export const AddPost = () => {
     }),
     []
   );
+
+  useEffect(() => {
+    if (currentUserId && userData._id && currentUserId !== userData._id) {
+      console.log('effect');
+      navigate('/');
+    }
+  }, [currentUserId, userData])
 
   if (!window.localStorage.getItem("token") && !isAuth) {
     return <Navigate to="/" />;
