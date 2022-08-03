@@ -52,8 +52,8 @@ export const Home = () => {
         <Tab label="Новые" {...a11yProps(0)} />
         <Tab label="Популярные" {...a11yProps(1)} />
       </Tabs>
-      <Grid container spacing={4}>
-        <Grid xs={8} item>
+      <Grid container spacing={{xs: 2, md: 4}}>
+        <Grid xs={12} md={8} order={{ xs: 2, md: 1}} item>
           <div
             role="tabpanel"
             hidden={value !== 0}
@@ -105,7 +105,7 @@ export const Home = () => {
             )}
           </div>
         </Grid>
-        <Grid xs={4} item>
+        <Grid xs={12} md={4} order={{ xs: 1, md: 2}} item>
           <TagsBlock items={tags.items} isLoading={isTagsLoading} />
           {/* <CommentsBlock
             items={[

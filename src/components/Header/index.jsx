@@ -6,6 +6,9 @@ import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import { logout, selectIsAuth } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
+import logo from '../../assets/img/logo.svg';
+
+import { AccountMenu } from "../AccountMenu";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -23,22 +26,11 @@ export const Header = () => {
       <Container maxWidth="lg">
         <div className={styles.inner}>
           <Link className={styles.logo} to="/">
-            <div>MUN-A BLOG</div>
+            <img src={logo} alt="" width={50} height={50}/>
           </Link>
           <div className={styles.buttons}>
             {isAuth ? (
-              <>
-                <Link to="/add-post">
-                  <Button variant="contained">Написать статью</Button>
-                </Link>
-                <Button
-                  onClick={onClickLogout}
-                  variant="contained"
-                  color="error"
-                >
-                  Выйти
-                </Button>
-              </>
+              <AccountMenu onClickLogout={onClickLogout}/>
             ) : (
               <>
                 <Link to="/login">

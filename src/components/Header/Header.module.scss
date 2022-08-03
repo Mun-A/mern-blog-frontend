@@ -8,25 +8,32 @@
 .inner {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-  background-color: black;
-  color: #fff;
-  font-weight: 700;
-  line-height: 35px;
-  text-transform: uppercase;
-  letter-spacing: 0.15px;
-  border-radius: 5px;
-  padding: 0 10px;
-  text-decoration: none;
+  // background-color: black;
+  // color: #fff;
+  // font-weight: 700;
+  // line-height: 35px;
+  // text-transform: uppercase;
+  // letter-spacing: 0.15px;
+  // border-radius: 5px;
+  // padding: 0 10px;
+  // text-decoration: none;
+  // transition: all 0.3s ease 0s;
 
-  &:hover {
-    background-color: #4361ee;
-  }
+  // &:hover {
+  //   background-color: #4361ee;
+  // }
 }
 
 .buttons {
+  @media (max-width: 479.98px){
+     display: flex; 
+     flex-direction: column;
+     gap: 10px;
+  }
   button {
     margin-left: 10px;
   }

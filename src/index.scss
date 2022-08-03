@@ -5,3 +5,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #F5F5F5 !important;
 }
+
+a {
+	color: inherit;
+}
+a:link,
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
