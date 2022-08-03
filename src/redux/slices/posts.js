@@ -73,4 +73,6 @@ const postsSlice = createSlice({
   },
 });
 
+export const postsByTag = (slug) => (state) => state.posts.posts.items.filter(post => post.tags.includes(slug))
+
 export const postsReducer = postsSlice.reducer;
