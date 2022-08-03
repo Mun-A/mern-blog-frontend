@@ -6,9 +6,10 @@ import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import { logout, selectIsAuth } from "../../redux/slices/auth";
 import { useDispatch, useSelector } from "react-redux";
-import logo from '../../assets/img/logo.svg';
+import logo from "../../assets/img/logo.svg";
 
 import { AccountMenu } from "../AccountMenu";
+import { DarkMode } from "../DarkMode";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -26,11 +27,12 @@ export const Header = () => {
       <Container maxWidth="lg">
         <div className={styles.inner}>
           <Link className={styles.logo} to="/">
-            <img src={logo} alt="" width={50} height={50}/>
+            <img src={logo} alt="Логотип" width={50} height={50} />
           </Link>
+          <DarkMode />
           <div className={styles.buttons}>
             {isAuth ? (
-              <AccountMenu onClickLogout={onClickLogout}/>
+              <AccountMenu onClickLogout={onClickLogout} />
             ) : (
               <>
                 <Link to="/login">

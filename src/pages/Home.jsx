@@ -8,8 +8,9 @@ import { Post } from "../components/Post";
 import { TagsBlock } from "../components/TagsBlock";
 import { CommentsBlock } from "../components/CommentsBlock";
 
-import axios from "../axios";
 import { fetchPosts, fetchTags } from "../redux/slices/posts";
+
+import styles from './Home.module.scss';
 
 function a11yProps(index) {
   return {
@@ -48,6 +49,7 @@ export const Home = () => {
         value={value}
         onChange={handleChange}
         aria-label="basic tabs example"
+        className={styles.tabs}
       >
         <Tab label="Новые" {...a11yProps(0)} />
         <Tab label="Популярные" {...a11yProps(1)} />

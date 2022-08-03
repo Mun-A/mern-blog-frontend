@@ -1,9 +1,27 @@
+:root {
+  --font-color: #2f3243;
+  --background-color: #F5F5F5;
+  --post-bg-color: #F5F5F5;
+  --border-color: #e2e8e5;
+  --border-color-hover: #454a61;
+  --link-hover: #454a61;
+}
+
+[data-theme="dark"] {
+  --font-color: #F5F5F5;
+  --background-color: #2f3243;
+  --post-bg-color: #393c50;
+  --border-color: #272a39;
+  --link-hover: rgb(221, 222, 230);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #F5F5F5 !important;
+  background-color: var(--background-color) !important;
+  color: var(--font-color) !important;
 }
 
 a {

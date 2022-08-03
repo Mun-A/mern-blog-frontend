@@ -1,16 +1,16 @@
-$blue: #4361ee;
-
 .root {
-  background-color: #fff;
-  border: 1px solid #dedede;
+  background-color: var(--post-bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 15px;
   position: relative;
+  transition: all 0.3s ease 0s;
 
   &:hover {
-    border: 1px solid $blue;
-    box-shadow: 0 0 0 1px $blue;
+    transform: scale(1.01);
+    border: 1px solid var(--border-color-hover);
+    box-shadow: 0 0 0 1px var(--border-color-hover);
 
     .editButtons {
       opacity: 1;
@@ -19,8 +19,8 @@ $blue: #4361ee;
 
   &Full {
     &:hover {
-      background-color: #fff;
-      border: 1px solid #dedede;
+      background-color: var(--post-bg-color);
+      border: 1px solid var(--border-color);
       box-shadow: none;
     }
   }
@@ -33,7 +33,10 @@ $blue: #4361ee;
 
   &Full {
     min-height: 300px;
-    height: 100%;
+    @media (min-width: 991.98px) {
+      object-fit: cover;
+      max-height: 1000px;
+    }
   }
 }
 
@@ -51,7 +54,9 @@ $blue: #4361ee;
 }
 
 .indention {
-  padding-left: 40px;
+  @media (min-width: 479.98px) {
+    padding-left: 40px;
+  }
 }
 
 .title {
@@ -60,16 +65,18 @@ $blue: #4361ee;
 
   a {
     text-decoration: none;
-    color: #000;
+    color: var(--font-color);
+    transition: all 0.3s ease 0s;
 
     &:hover {
-      color: $blue;
+      color: var(--link-hover);
     }
   }
 
   &Full {
     font-size: 42px;
     font-weight: 900;
+    line-height: 150%;
   }
 }
 
@@ -82,7 +89,8 @@ $blue: #4361ee;
     display: inline-block;
     font-size: 14px;
     margin-right: 15px;
-    opacity: 0.5;
+    opacity: 0.7;
+    transition: all 0.3s ease 0s;
 
     &:hover {
       opacity: 1;
@@ -90,7 +98,7 @@ $blue: #4361ee;
 
     a {
       text-decoration: none;
-      color: #000;
+      color: var(--font-color);
     }
   }
 }
@@ -115,8 +123,8 @@ $blue: #4361ee;
 }
 
 .skeleton {
-  background-color: #fff;
-  border: 1px solid #dedede;
+  background-color: var(--post-bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 15px;
@@ -151,7 +159,7 @@ $blue: #4361ee;
   position: absolute;
   right: 15px;
   top: 15px;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: var(--post-bg-color);
   border-radius: 10px;
   opacity: 0;
   transition: all 0.15s ease-in-out;
