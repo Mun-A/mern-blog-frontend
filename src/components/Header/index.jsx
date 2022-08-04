@@ -31,18 +31,7 @@ export const Header = () => {
           </Link>
           <DarkMode />
           <div className={styles.buttons}>
-            {isAuth ? (
-              <AccountMenu onClickLogout={onClickLogout} />
-            ) : (
-              <>
-                <Link to="/login">
-                  <Button variant="outlined">Войти</Button>
-                </Link>
-                <Link to="/register">
-                  <Button variant="contained">Создать аккаунт</Button>
-                </Link>
-              </>
-            )}
+              <AccountMenu onClickLogout={onClickLogout} isAuth={isAuth} />
           </div>
         </div>
       </Container>

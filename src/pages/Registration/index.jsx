@@ -20,9 +20,9 @@ export const Registration = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      fullName: "Ivan Pupkin",
-      email: "ivan@fake.com",
-      password: "12345",
+      fullName: "",
+      email: "",
+      password: "",
     },
     mode: "onChange",
   });
@@ -48,49 +48,54 @@ export const Registration = () => {
 
   return (
     <Paper classes={{ root: styles.root }}>
-      <Typography classes={{ root: styles.title }} variant="h5">
-        Создание аккаунта
-      </Typography>
-      <div className={styles.avatar}>
-        <Avatar sx={{ width: 100, height: 100 }} />
+      <div className={styles.content}>
+        <Typography classes={{ root: styles.title }} variant="h5">
+          Создание аккаунта
+        </Typography>
+        <div className={styles.avatar}>
+          <Avatar sx={{ width: 100, height: 100 }} />
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            className={styles.field}
+            error={Boolean(errors.fullName?.message)}
+            helperText={errors.fullName?.message}
+            type="text"
+            autoComplete="off"
+            {...register("fullName", { required: "Укажите полное имя" })}
+            label="Полное имя"
+            fullWidth
+          />
+          <TextField
+            className={styles.field}
+            label="E-Mail"
+            error={Boolean(errors.email?.message)}
+            helperText={errors.email?.message}
+            type="email"
+            autoComplete="off"
+            {...register("email", { required: "Укажите почту" })}
+            fullWidth
+          />
+          <TextField
+            className={styles.field}
+            error={Boolean(errors.password?.message)}
+            helperText={errors.password?.message}
+            {...register("password", { required: "Укажите пароль" })}
+            label="Пароль"
+            type='password'
+            fullWidth
+          />
+          <Button
+            disabled={!isValid}
+            type="submit"
+            size="large"
+            variant="contained"
+            fullWidth
+          >
+            Зарегистрироваться
+          </Button>
+        </form>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          className={styles.field}
-          error={Boolean(errors.fullName?.message)}
-          helperText={errors.fullName?.message}
-          type="text"
-          {...register("fullName", { required: "Укажите полное имя" })}
-          label="Полное имя"
-          fullWidth
-        />
-        <TextField
-          className={styles.field}
-          label="E-Mail"
-          error={Boolean(errors.email?.message)}
-          helperText={errors.email?.message}
-          type="email"
-          {...register("email", { required: "Укажите почту" })}
-          fullWidth
-        />
-        <TextField
-          className={styles.field}
-          error={Boolean(errors.password?.message)}
-          helperText={errors.password?.message}
-          {...register("password", { required: "Укажите пароль" })}
-          label="Пароль"
-          fullWidth
-        />
-        <Button
-          disabled={!isValid}
-          type="submit"
-          size="large"
-          variant="contained"
-          fullWidth
-        >
-          Зарегистрироваться
-        </Button>
-      </form>
     </Paper>
   );
 };

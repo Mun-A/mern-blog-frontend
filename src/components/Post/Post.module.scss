@@ -157,6 +157,7 @@
 
 .editButtons {
   position: absolute;
+  z-index: 10;
   right: 15px;
   top: 15px;
   background-color: var(--post-bg-color);

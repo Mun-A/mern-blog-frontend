@@ -1,22 +1,97 @@
 .root {
-  width: 400px;
-  padding: 50px;
-  border: 1px solid #dedede;
+  position: relative;
+  background-color: transparent !important;
+  max-width: 400px;
+  padding: 50px 0;
+  box-shadow: none !important;
   margin: 50px auto;
+
+  .content {
+    position: relative;
+    padding: 50px;
+    border-radius: 8px;
+    z-index: 1 !important;
+    backdrop-filter: blur(15px) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 100px;
+    width: 50%;
+    height: 100%;
+    text-decoration: none;
+    background: linear-gradient(315deg, #03a9f4, #ff0058);
+    border-radius: 8px;
+    transform: skewX(15deg);
+    transition: 0.5s;
+    @media (max-width: 450px) {
+      left: 50px;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 150px;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(315deg, #03a9f4, #ff0058);
+    border-radius: 8px;
+    transform: skewX(15deg);
+    transition: 0.5s;
+    filter: blur(30px);
+    @media (max-width: 450px) {
+      left: 100px;
+    }
+  }
+
+  &:hover::before,
+  &:hover::after {
+    transform: skewX(0deg);
+    left: 50px;
+    width: calc(100% - 100px);
+  }
+
+  form {
+    button {
+      color: var(--font-color);
+      background-color: var(--border-color);
+
+      &:hover {
+        background-color: var(--background-color) !important;
+      }
+    }
+  }
+
+  .field {
+    margin-bottom: 20px !important;
+    label,
+    input {
+      color: var(--font-color);
+    }
+    input:focus + fieldset, input:hover + fieldset {
+      border-color: var(--border-color-hover) !important;
+    }
+  }
+  
+  .title {
+    text-align: center !important;
+    font-weight: bold !important;
+    margin-bottom: 30px !important;
+    color: var(--font-color);
+  }
+  
+  .avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
 }
 
-.field {
-  margin-bottom: 20px !important;
-}
 
-.title {
-  text-align: center !important;
-  font-weight: bold !important;
-  margin-bottom: 30px !important;
-}
 
-.avatar {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}

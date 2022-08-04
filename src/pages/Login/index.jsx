@@ -19,8 +19,8 @@ export const Login = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      email: "test@fake.com",
-      password: "12345",
+      email: "",
+      password: "",
     },
     mode: "onChange",
   });
@@ -46,6 +46,7 @@ export const Login = () => {
 
   return (
     <Paper classes={{ root: styles.root }}>
+      <div className={styles.content}>
       <Typography classes={{ root: styles.title }} variant="h5">
         Вход в аккаунт
       </Typography>
@@ -56,12 +57,14 @@ export const Login = () => {
           error={Boolean(errors.email?.message)}
           helperText={errors.email?.message}
           type="email"
+          autoComplete="off"
           {...register("email", { required: "Укажите почту" })}
           fullWidth
         />
         <TextField
           className={styles.field}
           label="Пароль"
+          type='password'
           error={Boolean(errors.password?.message)}
           helperText={errors.password?.message}
           {...register("password", { required: "Укажите пароль" })}
@@ -78,6 +81,7 @@ export const Login = () => {
           Войти
         </Button>
       </form>
+      </div>
     </Paper>
   );
 };

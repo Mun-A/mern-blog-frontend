@@ -16,7 +16,7 @@ export const AddPost = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const isAuth = useSelector(selectIsAuth);
-  const userData = useSelector(state => state.auth.data);
+  const userData = useSelector((state) => state.auth.data);
   const [isLoading, setIsLoading] = useState(false);
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
@@ -91,7 +91,7 @@ export const AddPost = () => {
           setText(data.text);
           setTags(data.tags.join(","));
           setImageUrl(data.imageUrl);
-          setCurrentUserId(data.user._id)
+          setCurrentUserId(data.user._id);
         })
         .catch((err) => {
           console.warn(err);
@@ -119,42 +119,46 @@ export const AddPost = () => {
 
   useEffect(() => {
     if (currentUserId && userData._id && currentUserId !== userData._id) {
-      console.log('effect');
-      navigate('/');
+      console.log("effect");
+      navigate("/");
     }
-  }, [currentUserId, userData])
+  }, [currentUserId, userData]);
 
   if (!window.localStorage.getItem("token") && !isAuth) {
     return <Navigate to="/" />;
   }
 
   return (
-    <Paper style={{ padding: 30 }}>
-      <Button
-        onClick={() => inputFileRef.current.click()}
-        variant="outlined"
-        size="large"
-      >
-        Загрузить превью
-      </Button>
-      <input
-        ref={inputFileRef}
-        type="file"
-        onChange={handleChangeFile}
-        hidden
-      />
-      {imageUrl && (
-        <>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={onClickRemoveImage}
-          >
-            Удалить
-          </Button>
-          <img className={styles.image} src={imageUrl} alt="Uploaded" />
-        </>
-      )}
+    <Paper style={{ padding: 30 }} className={styles.root}>
+      <div className={styles.fileField}>
+        <Button
+          onClick={() => inputFileRef.current.click()}
+          variant="outlined"
+          size="large"
+        >
+          Загрузить превью
+        </Button>
+        <input
+          ref={inputFileRef}
+          type="file"
+          onChange={handleChangeFile}
+          hidden
+        />
+        {imageUrl && (
+          <>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={onClickRemoveImage}
+            >
+              Удалить
+            </Button>
+            <div className={styles.fileFieldImg}>
+              <img className={styles.image} src={imageUrl} alt="Uploaded" />
+            </div>
+          </>
+        )}
+      </div>
       <br />
       <br />
       <TextField

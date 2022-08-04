@@ -9,19 +9,31 @@ import {
 } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import Logout from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export const AccountMenu = ({ onClickLogout }) => {
-  const { fullName } = useSelector((state) => state.auth.data);
+export const AccountMenu = ({ onClickLogout, isAuth }) => {
+  const userData = useSelector((state) => state.auth.data);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const avatar = userData ? (
+    userData.fullName[0].toUpperCase()
+  ) : (
+    <AccountCircleIcon fontSize="medium" />
+  );
+
   return (
     <>
       <Tooltip title="Account settings">
@@ -33,7 +45,9 @@ export const AccountMenu = ({ onClickLogout }) => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32, bgcolor: '#757ce8' }}>{fullName[0].toUpperCase()}</Avatar>
+          <Avatar sx={{ width: 32, height: 32, bgcolor: "#757ce8" }}>
+            {avatar}
+          </Avatar>
         </IconButton>
       </Tooltip>
       <Menu
@@ -71,20 +85,35 @@ export const AccountMenu = ({ onClickLogout }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link to="/add-post">
-          <MenuItem>
+        <Link to={isAuth ? "/add-post" : "/register"}>
+          <MenuItem style={{color: '#2f3243'}}>
             <ListItemIcon>
-              <CreateIcon fontSize="small" />
+              {isAuth ? (
+                <CreateIcon fontSize="small" color="primary" />
+              ) : (
+                <PersonAddOutlinedIcon fontSize="small" color="primary" />
+              )}
             </ListItemIcon>
-            Написать статью
+            {isAuth ? "Написать статью" : "Создать аккаунт"}
           </MenuItem>
         </Link>
-        <MenuItem onClick={onClickLogout}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Выйти
-        </MenuItem>
+        {isAuth ? (
+          <MenuItem onClick={onClickLogout} style={{color: '#2f3243'}}>
+            <ListItemIcon>
+              <Logout fontSize="small" color="primary" />
+            </ListItemIcon>
+            Выйти
+          </MenuItem>
+        ) : (
+          <Link to="/login">
+            <MenuItem>
+              <ListItemIcon>
+                <LoginIcon fontSize="small" color="primary" />
+              </ListItemIcon>
+              Войти
+            </MenuItem>
+          </Link>
+        )}
       </Menu>
     </>
   );
