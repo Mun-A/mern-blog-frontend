@@ -13,10 +13,10 @@ import LoginIcon from "@mui/icons-material/Login";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useTypedSelector } from "../../hooks";
 
 export const AccountMenu = ({ onClickLogout, isAuth }) => {
-  const userData = useSelector((state) => state.auth.data);
+  const userData = useTypedSelector((state) => state.auth.data);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 

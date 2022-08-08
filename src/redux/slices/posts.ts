@@ -1,29 +1,42 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import axios from "../../axios";
+import { PostType } from '../../models';
+import { RootState } from '../store';
 
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async (sort) => {
+type PostsStateType = {
+  posts: {
+    items: PostType[];
+    status: string;
+  },
+  tags: {
+    items: string[];
+    status: string;
+  }
+}
+
+export const fetchPosts = createAsyncThunk("posts/fetchPosts", async (sort: string) => {
   const { data } = await axios.get(`/posts${sort ? '?sortBy=popular' : ''}`);
 
-  return data;
+  return data as PostType[];
 });
 
 export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {
   const { data } = await axios.get("/tags");
 
-  return data;
+  return data as string[];
 });
 
 export const fetchRemovePost = createAsyncThunk(
   "posts/fetchRemovePost",
-  async (id) => {
+  async (id: string) => {
     const { data } = await axios.delete(`/posts/${id}`);
 
-    return data;
+    return data as PostType;
   }
 );
 
-const initialState = {
+const initialState: PostsStateType = {
   posts: {
     items: [],
     status: "loading",
@@ -73,6 +86,6 @@ const postsSlice = createSlice({
   },
 });
 
-export const postsByTag = (slug) => (state) => state.posts.posts.items.filter(post => post.tags.includes(slug))
+export const postsByTag = (slug: string) => (state: RootState) => state.posts.posts.items.filter(post => post.tags.includes(slug))
 
 export const postsReducer = postsSlice.reducer;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useTypedSelector, useTypedDispatch } from "../../hooks";
 import { Navigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -11,8 +11,8 @@ import styles from "./Login.module.scss";
 import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
 
 export const Login = () => {
-  const isAuth = useSelector(selectIsAuth);
-  const dispatch = useDispatch();
+  const isAuth = useTypedSelector(selectIsAuth);
+  const dispatch = useTypedDispatch();
   const {
     register,
     handleSubmit,

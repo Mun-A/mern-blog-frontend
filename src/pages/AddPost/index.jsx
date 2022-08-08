@@ -6,7 +6,7 @@ import SimpleMDE from "react-simplemde-editor";
 
 import "easymde/dist/easymde.min.css";
 import styles from "./AddPost.module.scss";
-import { useSelector } from "react-redux";
+import { useTypedSelector } from "../../hooks";
 import { selectIsAuth } from "../../redux/slices/auth";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useRef } from "react";
@@ -15,8 +15,8 @@ import axios from "../../axios";
 export const AddPost = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const isAuth = useSelector(selectIsAuth);
-  const userData = useSelector((state) => state.auth.data);
+  const isAuth = useTypedSelector(selectIsAuth);
+  const userData = useTypedSelector((state) => state.auth.data);
   const [isLoading, setIsLoading] = useState(false);
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");

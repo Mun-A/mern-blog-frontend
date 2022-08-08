@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useTypedSelector, useTypedDispatch } from "../hooks";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Grid from "@mui/material/Grid";
@@ -20,9 +20,9 @@ function a11yProps(index) {
 }
 
 export const Home = () => {
-  const dispatch = useDispatch();
-  const userData = useSelector((state) => state.auth.data);
-  const { posts, tags } = useSelector((state) => state.posts);
+  const dispatch = useTypedDispatch();
+  const userData = useTypedSelector((state) => state.auth.data);
+  const { posts, tags } = useTypedSelector((state) => state.posts);
   const [value, setValue] = useState(0);
 
   const isPostsLoading = posts.status === "loading";
