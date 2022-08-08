@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 
 import { SideBlock } from "./SideBlock";
 import ListItem from "@mui/material/ListItem";
@@ -8,8 +8,23 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import Skeleton from "@mui/material/Skeleton";
+import { UserType } from "../models";
 
-export const CommentsBlock = ({ items, children, isLoading = true }) => {
+type CommentsBlockProps = {
+  items: {
+    id: string;
+    user: UserType;
+    text: string;
+  }[];
+  children: ReactNode;
+  isLoading: boolean;
+};
+
+export const CommentsBlock: FC<CommentsBlockProps> = ({
+  items,
+  children,
+  isLoading = true,
+}) => {
   return (
     <SideBlock title="Комментарии">
       <List>

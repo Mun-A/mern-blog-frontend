@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
@@ -7,11 +7,16 @@ import Avatar from "@mui/material/Avatar";
 
 import styles from "./Login.module.scss";
 import { useTypedSelector, useTypedDispatch } from "../../hooks";
-import { fetchRegister, selectIsAuth } from "../../redux/slices/auth";
+import {
+  fetchRegister,
+  RegisterParamsType,
+  selectIsAuth,
+} from "../../redux/slices/auth";
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
+import { UserType } from "../../models";
 
-export const Registration = () => {
+export const Registration: FC = () => {
   const isAuth = useTypedSelector(selectIsAuth);
   const dispatch = useTypedDispatch();
   const {
@@ -27,7 +32,7 @@ export const Registration = () => {
     mode: "onChange",
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: RegisterParamsType) => {
     const data = await dispatch(fetchRegister(values));
 
     if (!data.payload) {
@@ -36,8 +41,10 @@ export const Registration = () => {
       );
     }
 
-    if ("token" in data.payload) {
-      window.localStorage.setItem("token", data.payload.token);
+    const payload = data.payload as UserType;
+
+    if ("token" in payload) {
+      window.localStorage.setItem("token", payload.token);
     } else {
     }
   };
@@ -82,7 +89,7 @@ export const Registration = () => {
             helperText={errors.password?.message}
             {...register("password", { required: "Укажите пароль" })}
             label="Пароль"
-            type='password'
+            type="password"
             fullWidth
           />
           <Button

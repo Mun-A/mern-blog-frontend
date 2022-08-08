@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import ListItem from "@mui/material/ListItem";
 import TagIcon from "@mui/icons-material/Tag";
@@ -7,7 +7,12 @@ import Skeleton from "@mui/material/Skeleton";
 import { SideBlock } from "./SideBlock";
 import { Chip, Paper } from "@mui/material";
 
-export const TagsBlock = ({ items, isLoading = true }) => {
+type TagsBlockProps = {
+  items: string[];
+  isLoading: boolean;
+}
+
+export const TagsBlock: FC<TagsBlockProps> = ({ items, isLoading = true }) => {
   return (
     <SideBlock title="Тэги">
       <Paper

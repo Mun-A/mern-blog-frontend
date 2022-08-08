@@ -1,19 +1,34 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import clsx from "clsx";
 import { useTypedDispatch } from "../../hooks";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
 import EyeIcon from "@mui/icons-material/RemoveRedEyeOutlined";
-import CommentIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 
 import styles from "./Post.module.scss";
 import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
 import { Link } from "react-router-dom";
 import { fetchRemovePost } from "../../redux/slices/posts";
+import { UserType } from '../../models';
 
-export const Post = ({
+type PostProps = {
+  id: string;
+  title: string;
+  createdAt: string;
+  imageUrl: string;
+  user: UserType;
+  viewsCount: number;
+  commentsCount: number;
+  tags: string[];
+  isFullPost?: boolean;
+  isLoading?: boolean;
+  isEditable?: boolean;
+  children?: ReactNode;
+}
+
+export const Post: FC<PostProps> = ({
   id,
   title,
   createdAt,

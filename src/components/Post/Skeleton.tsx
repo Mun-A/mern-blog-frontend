@@ -1,10 +1,10 @@
-import React from "react";
+import { FC } from "react";
 import Stack from "@mui/material/Stack";
 import Skeleton from "@mui/material/Skeleton";
 
 import styles from "./Post.module.scss";
 
-export const PostSkeleton = () => {
+export const PostSkeleton: FC = () => {
   return (
     <div className={styles.skeleton}>
       <Stack spacing={1}>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTypedSelector, useTypedDispatch } from "../hooks";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,15 +11,16 @@ import { CommentsBlock } from "../components/CommentsBlock";
 import { fetchPosts, fetchTags } from "../redux/slices/posts";
 
 import styles from './Home.module.scss';
+import { PostSkeleton } from '../components/Post/Skeleton';
 
-function a11yProps(index) {
+function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
-export const Home = () => {
+export const Home: FC = () => {
   const dispatch = useTypedDispatch();
   const userData = useTypedSelector((state) => state.auth.data);
   const { posts, tags } = useTypedSelector((state) => state.posts);
@@ -28,7 +29,7 @@ export const Home = () => {
   const isPostsLoading = posts.status === "loading";
   const isTagsLoading = tags.status === "loading";
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     if (newValue === 0) {
       dispatch(fetchPosts())
     } else {
@@ -64,7 +65,7 @@ export const Home = () => {
           >
             {(isPostsLoading ? [...Array(5)] : posts.items).map((item, idx) =>
               isPostsLoading ? (
-                <Post key={idx} isLoading={true} />
+                <PostSkeleton key={idx} />
               ) : (
                 <Post
                   id={item._id}
@@ -89,7 +90,7 @@ export const Home = () => {
           >
             {(isPostsLoading ? [...Array(5)] : posts.items).map((item, idx) =>
               isPostsLoading ? (
-                <Post key={idx} isLoading={true} />
+                <PostSkeleton key={idx} />
               ) : (
                 <Post
                   id={item._id}

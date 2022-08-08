@@ -1,6 +1,3 @@
-import React from "react";
-import Button from "@mui/material/Button";
-
 import styles from "./Header.module.scss";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
@@ -10,8 +7,9 @@ import logo from "../../assets/img/logo.svg";
 
 import { AccountMenu } from "../AccountMenu";
 import { DarkMode } from "../DarkMode";
+import { FC } from 'react';
 
-export const Header = () => {
+export const Header: FC = () => {
   const dispatch = useTypedDispatch();
   const isAuth = useTypedSelector(selectIsAuth);
 

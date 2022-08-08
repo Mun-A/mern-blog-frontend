@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
@@ -11,8 +18,9 @@ import { selectIsAuth } from "../../redux/slices/auth";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 import axios from "../../axios";
+import { UserType } from '../../models';
 
-export const AddPost = () => {
+export const AddPost: FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const isAuth = useTypedSelector(selectIsAuth);
@@ -22,16 +30,18 @@ export const AddPost = () => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [currentUserId, setCurrentUserId] = useState(null);
-  const inputFileRef = useRef(null);
+  const [currentUserId, setCurrentUserId] = useState('');
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   const isEditing = Boolean(id);
 
-  const handleChangeFile = async (e) => {
+  const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       const formData = new FormData();
-      const file = e.target.files[0];
-      formData.append("image", file);
+      const file = e.target?.files?.[0];
+      if (file) {
+        formData.append("image", file);
+      }
 
       const {
         data: { data },
@@ -52,7 +62,7 @@ export const AddPost = () => {
     }
   };
 
-  const onChange = useCallback((value) => {
+  const onChange = useCallback((value: string) => {
     setText(value);
   }, []);
 
@@ -112,13 +122,14 @@ export const AddPost = () => {
       autosave: {
         enabled: true,
         delay: 1000,
+        uniqueId: currentUserId
       },
     }),
     []
   );
 
   useEffect(() => {
-    if (currentUserId && userData._id && currentUserId !== userData._id) {
+    if (currentUserId && userData?._id && currentUserId !== userData?._id) {
       console.log("effect");
       navigate("/");
     }
@@ -132,7 +143,7 @@ export const AddPost = () => {
     <Paper style={{ padding: 30 }} className={styles.root}>
       <div className={styles.fileField}>
         <Button
-          onClick={() => inputFileRef.current.click()}
+          onClick={() => inputFileRef.current?.click()}
           variant="outlined"
           size="large"
         >

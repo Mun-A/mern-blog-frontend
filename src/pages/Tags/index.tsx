@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useTypedSelector, useTypedDispatch } from "../../hooks";
 import { useParams } from "react-router-dom";
 import { Post } from "../../components";
@@ -7,11 +7,11 @@ import { fetchPosts, postsByTag } from "../../redux/slices/posts";
 
 import styles from "./Tags.module.scss";
 
-export const Tags = () => {
+export const Tags: FC = () => {
   const { slug } = useParams();
   const userData = useTypedSelector((state) => state.auth.data);
   const dispatch = useTypedDispatch();
-  const posts = useTypedSelector(postsByTag(slug));
+  const posts = useTypedSelector(postsByTag(slug ? slug : ''));
 
   useEffect(() => {
     dispatch(fetchPosts());

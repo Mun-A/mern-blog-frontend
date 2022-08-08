@@ -1,3 +1,4 @@
+import { ChangeEvent, FC } from 'react';
 import "./DarkMode.scss";
 
 const setDark = () => {
@@ -24,7 +25,7 @@ if (defaultDark) {
   setDark();
 }
 
-const toggleTheme = (e) => {
+const toggleTheme = (e: ChangeEvent<HTMLInputElement>) => {
   if (e.target.checked) {
     setDark();
   } else {
@@ -32,7 +33,7 @@ const toggleTheme = (e) => {
   }
 };
 
-export const DarkMode = () => {
+export const DarkMode: FC = () => {
   return (
     <div className="toggle-theme-wrapper">
       <span>☀️</span>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, MouseEvent, useState } from "react";
 import {
   Avatar,
   IconButton,
@@ -15,12 +15,17 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "../../hooks";
 
-export const AccountMenu = ({ onClickLogout, isAuth }) => {
+type AccounMenuProps = {
+  isAuth: boolean;
+  onClickLogout: () => void;
+}
+
+export const AccountMenu: FC<AccounMenuProps> = ({ onClickLogout, isAuth }) => {
   const userData = useTypedSelector((state) => state.auth.data);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 

@@ -15,10 +15,10 @@ type PostsStateType = {
   }
 }
 
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async (sort: string) => {
-  const { data } = await axios.get(`/posts${sort ? '?sortBy=popular' : ''}`);
+export const fetchPosts = createAsyncThunk<PostType[], string | undefined>("posts/fetchPosts", async (sort?) => {
+  const { data } = await axios.get<PostType[]>(`/posts${sort ? '?sortBy=popular' : ''}`);
 
-  return data as PostType[];
+  return data;
 });
 
 export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {

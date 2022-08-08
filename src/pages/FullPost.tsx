@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import ReactMarkdown from "react-markdown";
@@ -8,9 +8,11 @@ import { Index } from "../components/AddComment";
 import { CommentsBlock } from "../components/CommentsBlock";
 
 import axios from "../axios";
+import { PostType } from '../models';
+import { PostSkeleton } from '../components/Post/Skeleton';
 
-export const FullPost = () => {
-  const [item, setItem] = useState();
+export const FullPost: FC = () => {
+  const [item, setItem] = useState<PostType>();
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
 
@@ -29,8 +31,8 @@ export const FullPost = () => {
     fetchPost();
   }, []);
 
-  if (isLoading) {
-    return <Post isLoading={isLoading} isFullPost />;
+  if (isLoading || !item) {
+    return <PostSkeleton />;
   }
 
   return (

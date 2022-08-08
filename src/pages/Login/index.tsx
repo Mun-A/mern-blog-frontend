@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { FC } from "react";
 import { useTypedSelector, useTypedDispatch } from "../../hooks";
 import { Navigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
@@ -8,9 +8,10 @@ import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 
 import styles from "./Login.module.scss";
-import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
+import { fetchAuth, LoginParamsType, selectIsAuth } from "../../redux/slices/auth";
+import { UserType } from '../../models';
 
-export const Login = () => {
+export const Login: FC = () => {
   const isAuth = useTypedSelector(selectIsAuth);
   const dispatch = useTypedDispatch();
   const {
@@ -25,17 +26,19 @@ export const Login = () => {
     mode: "onChange",
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: LoginParamsType) => {
     const data = await dispatch(fetchAuth(values));
 
-    if (!data.payload) {
+    if (!data) {
       alert(
         "Не удалось авторизоваться! Попробуйте перезагрузить страницу и попробовать ещё раз."
       );
     }
 
-    if ("token" in data.payload) {
-      window.localStorage.setItem("token", data.payload.token);
+    const payload = data.payload as UserType;
+
+    if ("token" in payload) {
+      window.localStorage.setItem("token", payload.token);
     } else {
     }
   };

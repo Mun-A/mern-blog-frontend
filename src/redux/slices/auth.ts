@@ -1,25 +1,42 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import axios from "../../axios";
-import { UserType } from '../../models';
-import { RootState } from '../store';
+import { UserType } from "../../models";
+import { RootState } from "../store";
 
 type AuthStateType = {
   data: UserType | null;
   status: string;
-}
+};
 
-export const fetchAuth = createAsyncThunk("auth/fetchAuth", async (params) => {
-  const { data } = await axios.post("/auth/login", params);
+export type LoginParamsType = {
+  email: string;
+  password: string;
+};
 
-  return data as UserType;
-});
+export type RegisterParamsType = {
+  fullName: string;
+  email: string;
+  password: string;
+};
 
-export const fetchRegister = createAsyncThunk("auth/fetchRegister", async (params) => {
-  const { data } = await axios.post("/auth/register", params);
+export const fetchAuth = createAsyncThunk<UserType, LoginParamsType>(
+  "auth/fetchAuth",
+  async (params) => {
+    const { data } = await axios.post<UserType>("/auth/login", params);
 
-  return data as UserType;
-});
+    return data;
+  }
+);
+
+export const fetchRegister = createAsyncThunk<UserType, RegisterParamsType>(
+  "auth/fetchRegister",
+  async (params) => {
+    const { data } = await axios.post("/auth/register", params);
+
+    return data as UserType;
+  }
+);
 
 export const fetchLogin = createAsyncThunk("auth/fetchLogin", async () => {
   const { data } = await axios.get("/auth/me");
